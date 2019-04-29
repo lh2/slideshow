@@ -36,12 +36,6 @@ func parseColor(bgColor string) (color.Color, error) {
 	}, nil
 }
 
-func logerr(errch <-chan error) {
-	for err := range errch {
-		fmt.Fprintf(os.Stderr, "draw: %v\n", err)
-	}
-}
-
 func readStdin(ch chan<- string) {
 	s := bufio.NewScanner(os.Stdin)
 	for s.Scan() {
@@ -143,8 +137,8 @@ mainloop:
 		case line := <-in:
 			i, err := loadImage(line)
 			if err != nil {
-				fmt.Fprintf(os.Stderr, "draw: unable to read image: %v\n", err)
-				os.Exit(1)
+				fmt.Fprintf(os.Stderr, "unable to read image: %v\n", err)
+				break
 			}
 			imgdisp.SetImage(i)
 			win.Draw(true)
