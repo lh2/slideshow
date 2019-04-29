@@ -9,6 +9,9 @@ slideshow:
 slideshow.1: slideshow.1.scd
 	scdoc < $< > $@
 
+README: slideshow.1
+	MANWIDTH=80 man ./$< > $@
+
 install: all
 	mkdir -p ${DESTDIR}${PREFIX}/bin
 	cp -f slideshow ${DESTDIR}${PREFIX}/bin
